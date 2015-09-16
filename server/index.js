@@ -1,6 +1,10 @@
 /*jshint node:true */
 'use strict';
 
+var fs = require('fs');
+var http = require('http');
+var https = require('https');
+
 var config = require('config');
 var express = require('express');
 var session = require('express-session');
@@ -37,4 +41,25 @@ app
     res.status(404).send('404 Not Found').end();
   });
 
-app.listen(config.get('ports').http);
+https.createServer(
+         {
+           key : fs.readFileSync(__dirname + '/../certs/server/my-server.key.pem'),
+           cert : fs.readFileSync(__dirname + '/../certs/server/my-server.crt.pem'),
+           requestCert : false,
+           rejectUnauthorized : true
+         },
+         app)
+    .listen(config.get('ports').https, () => {
+      console.log(
+          `HTTPS live at https://localhost:${config.get('ports').https}`);
+    });
+
+var insecureApp = express();
+insecureApp.get(
+    '*',
+    (req, res) => {res.redirect(
+        `${config.get('protocol')}://${config.get('url')}:${config.get('ports').https}`)});
+http.createServer(insecureApp)
+    .listen(config.get('ports').http,
+            () => {console.log(`HTTP live at http://localhost:${config.get('ports').http}`)});
+
