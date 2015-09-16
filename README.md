@@ -1,6 +1,6 @@
 An HTTPS version of Jorge Silva’s [“Using PassportJS OAuth with RethinkDB”](https://rethinkdb.com/blog/passport-oauth-with-rethinkdb/).
 
-Follow the instructions in Silva’s article to complete `config/default.js`.
+Follow the instructions in Silva’s article to complete `config/default.js`, except use `https://127.0.0.1:9000` as the callback URL, i.e., `https://127.0.0.1:9000/auth/login/callback/github` and `https://127.0.0.1:9000/auth/login/callback/twitter`.
 
 But before launching Node, edit and run `$ bash oneshot-create-root-and-server-cert-and-sign.sh` in the top-level directory to create and populate `certs/` directory with a personal certificate authority (CA) and an SSL key signed by this CA.
 
