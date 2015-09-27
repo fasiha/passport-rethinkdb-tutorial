@@ -30,3 +30,5 @@ It's the same script that's run when you click the button above. If you get the 
 
 ### HTTPS
 This extension comes in two flavors. The above refers to the current `http` branch. The `https` branch is an even more minor extension that adds HTTPS/SSL support to Node. This is usually not seen in practice since it's more common to let Nginx handle SSL and forward traffic unencrypted to the Node server.
+
+N.B. POSTing from a site served over HTTPS to an unencrypted HTTP-only endpoint is forbidden by browsers. So if you do make your node app HTTP-only and you want your server to be able to service all clients, you'll need something like Nginx taking care of SSL.
