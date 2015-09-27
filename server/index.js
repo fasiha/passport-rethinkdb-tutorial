@@ -2,8 +2,6 @@
 'use strict';
 
 var fs = require('fs');
-var http = require('http');
-var https = require('https');
 
 var config = require('config');
 var express = require('express');
@@ -59,17 +57,7 @@ app.use('/auth', authRouter)
     .use('*',
          function(req, res) { res.status(404).send('404 Not Found').end(); });
 
-https.createServer(
-         {
-           key : fs.readFileSync(__dirname +
-                                 '/../certs/server/my-server.key.pem'),
-    cert : fs.readFileSync(__dirname + '/../certs/server/my-server.crt.pem'),
-    requestCert : false,
-    rejectUnauthorized : true
-         },
-         app)
-    .listen(config.get('ports').https, () => {
-      console.log('HTTPS live at https://127.0.0.1:' +
-                  config.get('ports').https);
-    });
+app.listen(config.get('ports').http,
+           () => console.log('Listening on http://127.0.0.1:' +
+                             config.get('ports').http));
 

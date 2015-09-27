@@ -8,10 +8,10 @@ module.exports = {
     consumerSecret: '' // Go to apps.twitter.com, create an application and add consumerSecret
   },
   url: '127.0.0.1',
-  protocol: 'https',
+  protocol: 'http',
   ports: {
     http: 8000,
-    https: 9000
+    https: null
   },
   rethinkdb: {
     host: 'localhost',
