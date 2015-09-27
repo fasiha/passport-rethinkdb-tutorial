@@ -13,51 +13,8 @@
   </br>
   <a href='/auth/login/twitter'>Login with Twitter</a>
 {{/user}}
-<p>
+<br><br>
 <button id="post-button">POST</button>
-</p>
-<small>
-<p>
-If clicking the above button results in a message being printed out by Node and
-four lines of text appended to this document, ending in <code>* readyState: 4,
-  status: 200, responseText: Ok</code>, then success! Browser clients serving
-same-domain content can POST to your HTTPS server.</p>
-
-<p><em>But</em> what about other clients? If you want to run a REST API that's
-accessible to third-parties, known as <a href="http://enable-cors.org/">CORS</a>, 
-this Node setup supports that! Open any <a
-href="https://news.ycombinator.com">page</a> on the web not on this domain
-(and <em>not</em> Github or Medium or anywhere that employs draconian <a
-href="https://github.com/blog/1477-content-security-policy">Content
-Security Policy</a>), pop open the JavaScript console, and run the
-following:
-<pre>
-    var req = new XMLHttpRequest();
-    req.onreadystatechange = (() => {
-      console.log(req.readyState || 'no readyState',
-                  req.status || 'no status',
-                  req.responseText || 'no responseText');
-      var div = document.createElement('div');
-      div.innerHTML = "* readyState: " + (req.readyState || 'none') +
-                      ', status: ' + (req.status || 'none') +
-                      ', responseText: ' + (req.responseText || 'none');
-      document.body.appendChild(div);
-    });
-    req.open('POST', 'https://127.0.0.1:4001/', true);
-    req.setRequestHeader('Content-Type', 'application/json');
-    req.withCredentials = true;
-    req.send(JSON.stringify({hi : 'there!'}));
-</pre>
-It's the same script that's run when you click the button above. If you get the
-same set of printouts, ending with <code>* readyState: 4, status: 200,
-  responseText: Ok</code> (and of course Node printing out a message), great!
-CORS is working.</p>
-<p>
-If you want to <em>disable</em> CORS, that is, if you don't want arbitrary
-clients POSTing to your server, configure <code>cors</code> in the server
-appropriately or just remove it entirely.
-</p>
-</small>
 <script>
 document.getElementById('post-button')
     .addEventListener('click', e => {
@@ -72,7 +29,7 @@ document.getElementById('post-button')
                         ', responseText: ' + (req.responseText || 'none');
         document.body.appendChild(div);
       });
-      req.open('POST', 'https://127.0.0.1:4001/', true);
+      req.open('POST', 'https://127.0.0.1:9000/', true);
       req.setRequestHeader('Content-Type', 'application/json');
       req.withCredentials = true;
       req.send(JSON.stringify({hi : 'there!'}));
