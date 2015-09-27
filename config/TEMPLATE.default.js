@@ -17,5 +17,6 @@ module.exports = {
     host: 'localhost',
     port: 28015,
     db: 'passport_rethinkdb_tutorial'
-  }
+  },
+  sessionSecret: "zfnzkwjehgweghw"
 };
